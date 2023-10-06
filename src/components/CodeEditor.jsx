@@ -15,14 +15,14 @@ const CodeEditor = () => {
     useStore.setState(randomSnippet);
   }, []);
 
-  useEffect(()=> {
-    if(store.autoDetectLanguage) {
-      const  {language} = flourite(store.code, {noUnknown: true})
-     useStore.setState({
-      language: language.toLowerCase() || "plaintext",
-     })
+  useEffect(() => {
+    if (store.autoDetectLanguage) {
+      const { language } = flourite(store.code, { noUnknown: true });
+      useStore.setState({
+        language: language.toLowerCase() || "plaintext",
+      });
     }
-  }, [store.autoDetectLanguage, store.code])
+  }, [store.autoDetectLanguage, store.code]);
 
   return (
     <div
@@ -32,9 +32,11 @@ const CodeEditor = () => {
           ? "bg-black/75 border-gray-600/40"
           : "bg-white/75 border-gray-200/20"
       )}
-      onClick={() => useStore.setState({ darkMode: !store.darkMode })}
     >
-      <header className="grid grid-cols-6 items-center px-4 py-3">
+      <header
+        className="grid grid-cols-6 items-center px-4 py-3"
+        onClick={() => useStore.setState({ darkMode: !store.darkMode })}
+      >
         <div className="flex gap-1.5">
           <div className="rounded-full h-3 w-3 bg-red-500"></div>
           <div className="rounded-full h-3 w-3 bg-yellow-500"></div>
@@ -71,7 +73,6 @@ const CodeEditor = () => {
             fontSize: store.fontSize,
           }}
           textareaClassName="focus:outline-none"
-          onClick={(e) => e.target.select()}
         />
       </div>
     </div>

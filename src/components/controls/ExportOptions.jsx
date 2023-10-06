@@ -15,6 +15,7 @@ import {
 } from "@radix-ui/react-icons";
 import { toBlob } from "html-to-image";
 import toast from "react-hot-toast";
+import useStore from "@/store";
 
 const ExportOptions = ({ targetRef }) => {
   const copyImage = async () => {
@@ -24,6 +25,16 @@ const ExportOptions = ({ targetRef }) => {
     const img = new ClipboardItem({ "image/png": imgBlob });
     navigator.clipboard.write([img]);
   };
+
+  const copyLink = ()=> {
+    const state = useStore.getState();
+    const queryParams = new URLSearchParams({
+        ...state,
+        code: btoa(state.code)
+    }).toString()
+    
+    navigator.clipboard.writeText(`${location.href}?${queryParams}`)
+  }
 
   return (
     <DropdownMenu>
@@ -42,7 +53,10 @@ const ExportOptions = ({ targetRef }) => {
           <ImageIcon />
           Copy Image
         </DropdownMenuItem>
-        <DropdownMenuItem className="gap-2">
+        <DropdownMenuItem className="gap-2" onClick={()=> {
+            copyLink();
+            toast.success("Link copied to clipboard!")
+        }}>
           <Link2Icon />
           Copy Link
         </DropdownMenuItem>
