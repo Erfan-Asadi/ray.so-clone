@@ -7,9 +7,24 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { DownloadIcon, ImageIcon, Link2Icon, Share2Icon } from "@radix-ui/react-icons";
+import {
+  DownloadIcon,
+  ImageIcon,
+  Link2Icon,
+  Share2Icon,
+} from "@radix-ui/react-icons";
+import { toBlob } from "html-to-image";
+import toast from "react-hot-toast";
 
 const ExportOptions = ({ targetRef }) => {
+  const copyImage = async () => {
+    const imgBlob = toBlob(targetRef.current, {
+      pixelRatio: 2,
+    });
+    const img = new ClipboardItem({ "image/png": imgBlob });
+    navigator.clipboard.write([img]);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -19,7 +34,11 @@ const ExportOptions = ({ targetRef }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="dark">
-        <DropdownMenuItem className="gap-2">
+        <DropdownMenuItem className="gap-2" onClick={()=> toast.promise(copyImage(), {
+            loading: "Copying...",
+            success: "Image copied to clipboard!",
+            error: 'Something went wrong!',
+        })}>
           <ImageIcon />
           Copy Image
         </DropdownMenuItem>
@@ -30,11 +49,11 @@ const ExportOptions = ({ targetRef }) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="gap-2">
           <DownloadIcon />
-            Save as PNG
+          Save as PNG
         </DropdownMenuItem>
         <DropdownMenuItem className="gap-2">
           <DownloadIcon />
-            Save as SVG
+          Save as SVG
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
