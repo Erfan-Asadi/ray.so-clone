@@ -4,12 +4,14 @@ import { Button } from "./components/ui/button";
 import { cn } from "./lib/utils";
 import { fonts, themes } from "./options";
 import useStore from "./store";
+import { Card } from "./components/ui/card";
+import ExportOptions from "./components/controls/ExportOptions";
 
 function App() {
   const { theme, padding, fontStyle, showBackground } = useStore();
   const editorRef = useRef(null);
 
-  
+
   return (
     <main className="dark min-h-screen flex justify-center items-center bg-neutral-950 text-white">
       <link
@@ -32,6 +34,9 @@ function App() {
       >
         <CodeEditor />
       </div>
+      <Card className="fixed bottom-16 py-6 px-8 mx-6 bg-neutral-900/90 backdrop-blur">
+          <ExportOptions targetRef={editorRef}/>
+      </Card>
     </main>
   );
 }
