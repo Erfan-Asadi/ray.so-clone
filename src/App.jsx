@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import CodeEditor from "./components/CodeEditor";
 import { Button } from "./components/ui/button";
 import { cn } from "./lib/utils";
@@ -11,6 +11,20 @@ function App() {
   const { theme, padding, fontStyle, showBackground } = useStore();
   const editorRef = useRef(null);
 
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    if (queryParams.size === 0) return;
+    const state = Object.fromEntries(queryParams);
+
+    useStore.setState({
+      ...state,
+      code: state.code ? atob(state.code) : "",
+      autoDetectLanguage: state.autoDetectLanguage === "true",
+      darkMode: state.darkMode === true,
+      fontSize: Number(state.fontSize || 18),
+      padding: Number(state.padding || 64),
+    });
+  }, []);
 
   return (
     <main className="dark min-h-screen flex justify-center items-center bg-neutral-950 text-white">
@@ -35,7 +49,7 @@ function App() {
         <CodeEditor />
       </div>
       <Card className="fixed bottom-16 py-6 px-8 mx-6 bg-neutral-900/90 backdrop-blur">
-          <ExportOptions targetRef={editorRef}/>
+        <ExportOptions targetRef={editorRef} />
       </Card>
     </main>
   );
