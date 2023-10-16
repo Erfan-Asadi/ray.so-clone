@@ -12,6 +12,7 @@ import FontSizeInput from "./components/controls/FontSizeInput";
 import PaddingSlider from "./components/controls/PaddingSlider";
 import BackgroundToggle from "./components/controls/BackgroundToggle";
 import DarkModeToggle from "./components/controls/DarkModeToggle";
+import { Resizable } from "re-resizable";
 
 function App() {
   const { theme, padding, fontStyle, showBackground } = useStore();
@@ -44,16 +45,22 @@ function App() {
         href={fonts[fontStyle].src}
         crossOrigin="anonymous"
       />
-      <div
-        className={cn(
-          "overflow-hidden mb-2 transition-all ease-out",
-          showBackground ? themes[theme].background : "ringring-neutral-900"
-        )}
-        style={{ padding }}
-        ref={editorRef}
+      <Resizable
+        enable={{ left: true, right: true }}
+        minWidth={padding * 2 + 400}
       >
-        <CodeEditor />
-      </div>
+        <div
+          className={cn(
+            "overflow-hidden mb-2 transition-all ease-out",
+            showBackground ? themes[theme].background : "ringring-neutral-900"
+          )}
+          style={{ padding }}
+          ref={editorRef}
+        >
+          <CodeEditor />
+        </div>
+      </Resizable>
+
       <Card className="fixed bottom-16 py-6 px-8 mx-6 bg-neutral-900/90 backdrop-blur">
         <CardContent className="flex flex-wrap gap-6 p-0">
           <LanguageSelect />
@@ -63,7 +70,10 @@ function App() {
           <FontSizeInput />
           <BackgroundToggle />
           <DarkModeToggle />
-          <ExportOptions targetRef={editorRef} />
+          <div className="bg-neutral-800 w-px"></div>
+          <div className="place-self-center">
+            <ExportOptions targetRef={editorRef} />
+          </div>
         </CardContent>
       </Card>
     </main>
