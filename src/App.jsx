@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import CodeEditor from "./components/CodeEditor";
-import { Button } from "./components/ui/button";
 import { cn } from "./lib/utils";
 import { fonts, themes } from "./options";
 import useStore from "./store";
@@ -9,6 +8,7 @@ import ExportOptions from "./components/controls/ExportOptions";
 import ThemeSelect from "./components/controls/ThemeSelect";
 import LanguageSelect from "./components/controls/LanguageSelect";
 import FontSelect from "./components/controls/FontSelect";
+import FontSizeInput from "./components/controls/FontSizeInput";
 
 function App() {
   const { theme, padding, fontStyle, showBackground } = useStore();
@@ -40,7 +40,6 @@ function App() {
         rel="stylesheet"
         href={fonts[fontStyle].src}
         crossOrigin="anonymous"
-      
       />
       <div
         className={cn(
@@ -54,9 +53,10 @@ function App() {
       </div>
       <Card className="fixed bottom-16 py-6 px-8 mx-6 bg-neutral-900/90 backdrop-blur">
         <CardContent className="flex flex-wrap gap-6 p-0">
-         <LanguageSelect />
-         <ThemeSelect />
-         <FontSelect />
+          <LanguageSelect />
+          <ThemeSelect />
+          <FontSelect />
+          <FontSizeInput />
           <ExportOptions targetRef={editorRef} />
         </CardContent>
       </Card>
