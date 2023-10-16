@@ -10,6 +10,8 @@ import LanguageSelect from "./components/controls/LanguageSelect";
 import FontSelect from "./components/controls/FontSelect";
 import FontSizeInput from "./components/controls/FontSizeInput";
 import PaddingSlider from "./components/controls/PaddingSlider";
+import BackgroundToggle from "./components/controls/BackgroundToggle";
+import DarkModeToggle from "./components/controls/DarkModeToggle";
 
 function App() {
   const { theme, padding, fontStyle, showBackground } = useStore();
@@ -59,6 +61,8 @@ function App() {
           <FontSelect />
           <PaddingSlider />
           <FontSizeInput />
+          <BackgroundToggle />
+          <DarkModeToggle />
           <ExportOptions targetRef={editorRef} />
         </CardContent>
       </Card>
