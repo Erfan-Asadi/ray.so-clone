@@ -13,7 +13,8 @@ import { MagicWandIcon } from "@radix-ui/react-icons";
 const LanguageSelect = () => {
   const { language, autoDetectLanguage } = useStore();
 
-  const handleLanguageChange = () => {
+  const handleLanguageChange = (language) => {
+    
     if (language === "auto-detect") {
       useStore.setState({ autoDetectLanguage: true, language: "plaintext" });
     } else {
@@ -25,12 +26,12 @@ const LanguageSelect = () => {
       <label className="block mb-2 text-xs font-medium text-neutral-400">
         Language
       </label>
-      <Select value={language} onValueChange={handleLanguageChange}>
+      <Select value={language} onValueChange={(lang) =>handleLanguageChange(lang)}>
         <SelectTrigger className="w-40">
             {autoDetectLanguage && <MagicWandIcon className="mr-2" />}
           <SelectValue placeholder="Select Language" />
         </SelectTrigger>
-        <SelectContent className="dark max-h-[500px]">
+        <SelectContent className="dark max-h-[400px]">
           <SelectItem value="auto-detect">Auto Detect</SelectItem>
           {Object.entries(languages).map(([lang, name]) => {
             return (

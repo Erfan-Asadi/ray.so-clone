@@ -11,7 +11,7 @@ const useStore = create(
         language: "plaintext",
         autoDetectLanguage: false,
         fontSize: 18,
-        fontStyle: 'JetBrains Mono',
+        fontStyle: 'jetBrainsMono',
         padding: 64
     }), {
         name: "user-preferences"

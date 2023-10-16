@@ -8,6 +8,7 @@ import { Card, CardContent } from "./components/ui/card";
 import ExportOptions from "./components/controls/ExportOptions";
 import ThemeSelect from "./components/controls/ThemeSelect";
 import LanguageSelect from "./components/controls/LanguageSelect";
+import FontSelect from "./components/controls/FontSelect";
 
 function App() {
   const { theme, padding, fontStyle, showBackground } = useStore();
@@ -39,6 +40,7 @@ function App() {
         rel="stylesheet"
         href={fonts[fontStyle].src}
         crossOrigin="anonymous"
+      
       />
       <div
         className={cn(
@@ -54,6 +56,7 @@ function App() {
         <CardContent className="flex flex-wrap gap-6 p-0">
          <LanguageSelect />
          <ThemeSelect />
+         <FontSelect />
           <ExportOptions targetRef={editorRef} />
         </CardContent>
       </Card>
